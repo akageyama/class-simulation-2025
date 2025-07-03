@@ -1,0 +1,160 @@
+# Unix 基本コマンド
+#  Basic Commands of UNIX
+ 
+##  as of 2022.10.27 
+
+
+
+## Unixの哲学
+
+ * 小さなプログラムに一つのことをさせる
+ * 複数のプログラムを連携させる
+ * テキストストリームを基本とする
+
+
+## パイプ
+
+- 例: ls /usr/bin | grep paranoia
+
+- 2つのプログラムのテキスト入出力をパイプで連結している。1つ目のコマンドは、lsコマンド。/usr/binディレクトリのフィアルリストをテキストで出力する。そして2つ目のコマンドは、grepコマンド。入力テキストデータから"paranoia"という言葉を検索している。両者をパイプ ("|"の記号）で連結。
+
+
+#---------
+# エリアス
+#---------
+
+~（チルダ）
+ホームディレクトリ
+example: ls ~
+
+. （ピリオド1つ）
+カレントディレクトリ
+example: ls .
+
+.. （ピリオド2つ）
+親ディレクトリ
+example: ls ..
+
+
+#--------------------
+# コマンドマニュアル
+#--------------------
+
+command: man <command>
+explanation: Show online manual of <command>
+example: man date
+
+command: info <command>
+explanation: Show online manual of <command>
+example: info date
+
+
+#----------------------------
+# ファイル・ディレクトリ操作
+#----------------------------
+
+command: pwd
+カレント(現在の)ディレクトリ表示
+example: pwd
+
+command: cd [path]
+カレントディレクトリを変更
+example: cd ..      # 親ディレクトリに移動
+example: cd         # ホームディレクトリに移動
+example: cd ~/work  # ホームディレクトリ下のworkディレクトリに移動
+
+command: tree [path]
+ディレクトリのツリー構造表示
+example: tree       # カレントディレクトリの構造
+example: tree ~     # ホームディレクトリの構造
+example: tree data  # dataディレクトリの構造
+
+command: ls [path]
+ファイルリストの表示
+example: ls -l      # 詳細リスト
+example: ls -la     # 不可視ファイル（.なんとか）も表示
+example: ls -lat    # 時刻でソート
+
+command: mkdir ディレクトリ名
+ディレクトリ作成
+example: mkdir work
+
+command: cp <file_from> <path_to>
+ファイルのコピー
+example: cp ~/work/file1 .  # file1を現在位置にコピー
+
+command: cp -r <directory_from> <path_to>
+ディレクトリをまるごとコピー
+example: cp -r ~/work ./work2
+
+command: mv <file_from> <path_to>
+ファイルの移動または名前の変更
+example: mv ~/work/file1 .       # ディレクトリ移動
+example: mv ~/file1 ~/file1_new  # 名前変更
+
+
+#--------------------
+# ファイルの中身表示
+#--------------------
+
+command: cat <file>
+テキストデータをテーミナルに表示
+example: cat ~/work/file1_new
+
+command: less <file>
+テキストデータを1ページずつターミナルに表示
+example: less ~/work/file       # スペースで次。bキーで戻る。
+example: cat ~/work/file | less # catコマンドとパイプで結合。
+
+
+#-----------
+# シェル操作
+#-----------
+
+command: history 
+入力したコマンド履歴の表示
+example: history
+example: history 20
+
+command: ;（セミコロン）
+コマンドの連結
+example: echo "It is "; date
+
+command: コマンド1 && コマンド2
+コマンド実行し、それが成功した場合にコマンド2を実行
+example: gcc sample.c && ./a.out
+
+command: sleep <n>
+n秒間スリープ
+example: sleep 3; echo "good morning."
+
+command: !!
+直前に実行したコマンドを再実行
+example: !!
+
+command: !文字列
+最近入力した<文字列>で始まるコマンドの再実行
+example: !his    # 最近たとえば history 100 を実行したらそれを再度実行。
+example: !his:p  # 再実行するのではなく、表示するだけ。確認に便利。
+
+#-----------
+# 文字列操作
+#-----------
+
+command: grep <word> <file>
+<file>の中の<word>という語を検索する
+example: grep paranoia /share/S50007/_BasicCommands.txt
+
+
+#-----------------
+# バッチジョブ関係
+#-----------------
+
+command: qsub <jobscript>
+ジョブの投入
+example: qsub test.sh
+
+command: qstat
+投入したジョブの状態を表示
+example: qstat
+
